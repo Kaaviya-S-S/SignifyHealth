@@ -466,31 +466,6 @@ drop procedure if exists `Get_dept_Doctors`;
 // DELIMITER 
 
 
-DELIMITER //
-drop TRIGGER if exists InsertDoctortriggers;
-// DELIMITER
-
-DELIMITER //
-CREATE TRIGGER InsertDoctortriggers AFTER INSERT ON Doctors
-FOR EACH ROW
-BEGIN
-    DECLARE department_count INT;
-
-    -- Check if the department exists in the Department table
-    SELECT COUNT(*) INTO department_count FROM Department WHERE name = NEW.Specialization;
-
-    -- If the department doesn't exist, insert it into the Department table
-    IF department_count = 0 THEN
-        INSERT INTO Department (name, doctor_id)
-        VALUES (NEW.Specialization, NEW.DoctorID);
-    END IF;
-END;
-// DELIMITER
-
-DELIMITER //
-drop trigger if exists `InsertDoctortriggers`;	
-// DELIMITER
-
 -- ************************************************************************************************************************************
 
 DELIMITER //
@@ -721,22 +696,4 @@ drop procedure GetAll_Appointments_date;
 
 
 -- ****************************************************************************************************************************
-
-
-DELIMITER //
-CREATE TABLE Department (
-    department_id INT AUTO_INCREMENT PRIMARY KEY,
-    department_name VARCHAR(255),
-    doctor_id INT,
-    FOREIGN KEY (doctor_id) REFERENCES Doctors(DoctorID)
-);
-// DELIMITER
-
-
-DELIMITER //
-select * from Department;
-// DELIMITER 
-
-DELIMITER //
-drop table Departments;
-// DELIMITER 
+ 
