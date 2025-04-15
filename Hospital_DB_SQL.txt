@@ -722,3 +722,21 @@ drop procedure GetAll_Appointments_date;
 
 -- ****************************************************************************************************************************
 
+
+DELIMITER //
+CREATE TABLE Department (
+    department_id INT AUTO_INCREMENT PRIMARY KEY,
+    department_name VARCHAR(255),
+    doctor_id INT,
+    FOREIGN KEY (doctor_id) REFERENCES Doctors(DoctorID)
+);
+// DELIMITER
+
+
+DELIMITER //
+select * from Department;
+// DELIMITER 
+
+DELIMITER //
+drop table Departments;
+// DELIMITER 
